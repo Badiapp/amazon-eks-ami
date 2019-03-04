@@ -5,7 +5,7 @@ DATE ?= $(shell date +%Y-%m-%d)
 # Defaults to Amazon Linux 2 LTS AMI
 # * use the us-west-2 minimal hvm image
 # https://aws.amazon.com/amazon-linux-2/release-notes/
-SOURCE_AMI_ID ?= $(shell aws ec2 describe-images \
+SOURCE_AMI_ID ?= $(shell aws --region eu-central-1 ec2 describe-images \
 	--output text \
 	--filters \
 		Name=owner-id,Values=137112412989 \
@@ -16,7 +16,7 @@ SOURCE_AMI_ID ?= $(shell aws ec2 describe-images \
 		Name=state,Values=available \
 	--query 'max_by(Images[], &CreationDate).ImageId')
 
-AWS_DEFAULT_REGION = us-west-2
+AWS_DEFAULT_REGION = eu-central-1
 
 .PHONY: all validate ami 1.11 1.10
 
